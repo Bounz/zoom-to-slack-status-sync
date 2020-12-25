@@ -13,7 +13,8 @@ Provided Apple Script is useful for changing your Slack status and/or DnD mode w
 ### How to compile an app and run it when system starts
 
 5. In Script Editor select *File* - *Export* menu
-6. In Export dialog select *Application* as *File Format*
+6. In Export dialog select *Application* as *File Format* and check *Stay open after run handler* checkbox
+   ![export sttings](export-settings.png)
 7. Save application to desired location
 8. Open *System Preferences* - *Users and Groups* and switch to *Login Items* tab
 9. Click on + button and choose previousy exported application

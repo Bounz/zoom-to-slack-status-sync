@@ -1,44 +1,41 @@
-set slack_token to "xoxp-XXXXXXXX-XXXXXXXXX"
-set slack_dnd_url to "https://slack.com/api/dnd.setSnooze"
-set slack_dnd_num_minutes to 60
+property slack_token : "xoxp-XXXXXXXX-XXXXXXXXX"
+property slack_dnd_url : "https://slack.com/api/dnd.setSnooze"
+property slack_dnd_num_minutes : 60
 
-set slack_status_url to "https://slack.com/api/users.profile.set"
-set status_text to "In a Zoom meeting"
-set status_emoji to ":telephone_receiver:"
-set delay_secs to 5
+property slack_status_url : "https://slack.com/api/users.profile.set"
+property status_text : "In a Zoom meeting"
+property status_emoji : ":telephone_receiver:"
+property delay_secs : 5
+property prevMeetingInProgressState : false
 
-repeat
+
+on idle
 	
-	if isMeetingInProgress() then
+	if isMeetingInProgress() and prevMeetingInProgressState is false then
 		-- set DnD and status
+		set prevMeetingInProgressState to true
 		set curl_cmd to "curl 'https://slack.com/api/dnd.setSnooze?token=" & slack_token & "&num_minutes=" & slack_dnd_num_minutes & "'"
 		do shell script curl_cmd
 		
 		set payload to "profile={\"status_text\": \"" & status_text & "\", \"status_emoji\": \"" & status_emoji & "\"}"
 		set curl_cmd to "curl -sS -X POST -d \"token=" & slack_token & "\" --data-urlencode '" & payload & "' " & slack_status_url
-		do shell script curl_cmd
-		
-		-- wait for the meeting to end
-		repeat while isMeetingInProgress() is true
-			delay delay_secs
-		end repeat
-		
+		do shell script curl_cmd		
 	else
-		-- remove DnD
-		set curl_cmd to "curl 'https://slack.com/api/dnd.endSnooze?token=" & slack_token & "'"
-		do shell script curl_cmd
-		
-		set payload to "profile={\"status_text\": \"\", \"status_emoji\": \"\"}"
-		set curl_cmd to "curl -sS -X POST -d \"token=" & slack_token & "\" --data-urlencode '" & payload & "' " & slack_status_url
-		do shell script curl_cmd
-		
-		-- wait for the meeting to start
-		repeat while isMeetingInProgress() is false
-			delay delay_secs
-		end repeat
+		if isMeetingInProgress() is false and prevMeetingInProgressState is true then			
+			-- remove DnD and clear status
+			set prevMeetingInProgressState to false
+			set curl_cmd to "curl 'https://slack.com/api/dnd.endSnooze?token=" & slack_token & "'"
+			do shell script curl_cmd
+			
+			set payload to "profile={\"status_text\": \"\", \"status_emoji\": \"\"}"
+			set curl_cmd to "curl -sS -X POST -d \"token=" & slack_token & "\" --data-urlencode '" & payload & "' " & slack_status_url
+			do shell script curl_cmd			
+		end if
 	end if
 	
-end repeat
+	return delay_secs
+end idle
+
 
 on isMeetingInProgress()
 	tell application "System Events"
@@ -49,3 +46,8 @@ on isMeetingInProgress()
 		end if
 	end tell
 end isMeetingInProgress
+
+
+on quit
+	continue quit
+end quit
