@@ -14,7 +14,7 @@ on idle
 	if isMeetingInProgress() and prevMeetingInProgressState is false then
 		-- set DnD and status
 		set prevMeetingInProgressState to true
-		set curl_cmd to "curl 'https://slack.com/api/dnd.setSnooze?token=" & slack_token & "&num_minutes=" & slack_dnd_num_minutes & "'"
+		set curl_cmd to "curl -sS -X POST -d token=" & slack_token & " https://slack.com/api/dnd.setSnooze?num_minutes=" & slack_dnd_num_minutes
 		do shell script curl_cmd
 		
 		set payload to "profile={\"status_text\": \"" & status_text & "\", \"status_emoji\": \"" & status_emoji & "\"}"
@@ -24,7 +24,7 @@ on idle
 		if isMeetingInProgress() is false and prevMeetingInProgressState is true then			
 			-- remove DnD and clear status
 			set prevMeetingInProgressState to false
-			set curl_cmd to "curl 'https://slack.com/api/dnd.endSnooze?token=" & slack_token & "'"
+			set curl_cmd to "curl -sS -X POST -d token=" & slack_token & " https://slack.com/api/dnd.endSnooze"
 			do shell script curl_cmd
 			
 			set payload to "profile={\"status_text\": \"\", \"status_emoji\": \"\"}"
