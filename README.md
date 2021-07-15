@@ -14,7 +14,7 @@ Provided Apple Script is useful for changing your Slack status and/or DnD mode w
 
 5. In Script Editor select *File* - *Export* menu
 6. In Export dialog select *Application* as *File Format* and check *Stay open after run handler* checkbox
-   ![export sttings](export-settings.png)
+   ![export settings](export-settings.png)
 7. Save application to desired location
 8. Open *System Preferences* - *Users and Groups* and switch to *Login Items* tab
 9. Click on + button and choose previousy exported application
@@ -30,6 +30,7 @@ Provided Apple Script is useful for changing your Slack status and/or DnD mode w
 
 * Then in the *Scopes* block click *Add an OAuth Scope* button in **User Token Scopes**
   You will need following scopes enabled on your Slack token:
+  * [`users.profile:read`](https://api.slack.com/scopes/users.profile:read)
   * [`users.profile:write`](https://api.slack.com/scopes/users.profile:write)
   * [`dnd:write`](https://api.slack.com/scopes/dnd:write)
 
