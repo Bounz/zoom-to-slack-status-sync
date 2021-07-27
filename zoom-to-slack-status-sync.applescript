@@ -1,10 +1,12 @@
+-- User settings
 property slack_token : "xoxp-XXXXXXXX-XXXXXXXXX"
-property slack_dnd_url : "https://slack.com/api/dnd.setSnooze"
-property slack_dnd_num_minutes : 60
-
-property slack_status_url : "https://slack.com/api/users.profile.set"
 property zoom_status_text : "In a Zoom meeting"
 property zoom_status_emoji : ":telephone_receiver:"
+
+-- System settings
+property slack_dnd_url : "https://slack.com/api/dnd.setSnooze"
+property slack_dnd_num_minutes : 60
+property slack_status_url : "https://slack.com/api/users.profile.set"
 property status_text : ""
 property status_emoji : ""
 property status_expiration : 0
@@ -15,10 +17,6 @@ property slack_profile_get_url : "https://slack.com/api/users.profile.get"
 property status_emoji_rx : "\"\\\"status_emoji\\\":\\\"(.*?)\\\",\""
 property status_text_rx : "\"\\\"status_text\\\":\\\"(.*?)\\\",\""
 property status_expiration_rx : "\"\\\"status_expiration\\\":(.*?),\""
-
-property status_emoji : ""
-property status_text : ""
-property status_expiration : 0
 
 
 on idle
