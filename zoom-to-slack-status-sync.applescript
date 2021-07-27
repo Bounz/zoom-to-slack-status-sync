@@ -57,13 +57,21 @@ end idle
 
 
 on isMeetingInProgress()
-	tell application "System Events"
-		if exists (window "Zoom Meeting" of process "zoom.us") then
-			return true
-		else
-			return false
-		end if
-	end tell
+	try
+		tell application "System Events"
+			set windowsList to windows of process "zoom.us"
+			
+			repeat with theWindow in windowsList
+				set windowTitle to title of theWindow
+				log windowTitle
+				if windowTitle contains "Zoom Meeting" then
+					return true
+				end if
+			end repeat
+		end tell
+	end try
+	
+	return false
 end isMeetingInProgress
 
 on match(_subject, _regex)
