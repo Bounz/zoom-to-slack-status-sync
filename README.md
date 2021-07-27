@@ -7,7 +7,7 @@ Provided Apple Script is useful for changing your Slack status and/or DnD mode w
 1. Clone repository or simply download the `zoom-to-slack-status-sync.applescript` file
 2. Open it with Script Editor on your Mac
 3. Change the value of the `slack_token` variable to your token
-4. You may want to change `status_text` and `status_emoji` variables to customise your custom status emoji and message
+4. You may want to change `zoom_status_text` and `zoom_status_emoji` variables to customise your custom status emoji and message
 5. Run the script (you will need to grant *Accessibility* permission to Script Editor)
 
 ### How to compile an app and run it when system starts
