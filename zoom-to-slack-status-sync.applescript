@@ -3,8 +3,11 @@ property slack_dnd_url : "https://slack.com/api/dnd.setSnooze"
 property slack_dnd_num_minutes : 60
 
 property slack_status_url : "https://slack.com/api/users.profile.set"
-property status_text : "In a Zoom meeting"
-property status_emoji : ":telephone_receiver:"
+property zoom_status_text : "In a Zoom meeting"
+property zoom_status_emoji : ":telephone_receiver:"
+property status_text : ""
+property status_emoji : ""
+property status_expiration : 0
 property delay_secs : 5
 property prevMeetingInProgressState : false
 
