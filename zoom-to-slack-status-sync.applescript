@@ -62,7 +62,7 @@ on isMeetingInProgress()
 			repeat with theWindow in windowsList
 				set windowTitle to title of theWindow
 				log windowTitle
-				if windowTitle contains "Zoom Meeting" then
+				if windowTitle contains "Zoom Meeting" or windowTitle contains "zoom share" then
 					return true
 				end if
 			end repeat
